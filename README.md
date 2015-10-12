@@ -28,6 +28,7 @@ CALENDAR_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
 です。
 
 
+
 ＊使い方
 
 仕事開始時にGTimecard_start.rbを実行します。
