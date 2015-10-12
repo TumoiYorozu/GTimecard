@@ -2,6 +2,8 @@
 require "time"
 require 'date'
 
+Dir.chdir(__dir__)
+
 working_file = ".working"
 comment_file = ".comment"
 
