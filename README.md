@@ -14,11 +14,12 @@ cd GTimecard
 途中でブラウザが開いて認証の確認が出るので、許可しましょう。
 
 
-最後に、GTimecard_end.rbを開いて、7行目辺りの
+環境構築できたら、インストールしたディレクトリにcalender_id.txtを作成して
 
-CALENDAR_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
+XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com
 
-を書き込むカレンダーのＩＤに書き換えます。
+形式のカレンダーＩＤを書き込みます。(カッコや""は必要ありません)
+
 
 確認方法は、
 
@@ -27,6 +28,7 @@ CALENDAR_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
 「カレンダーのアドレス」の欄の「カレンダー ID:」
 です。
 
+最後に、worker_name.txtに自分の名前を書き込みます
 
 
 ＊使い方
