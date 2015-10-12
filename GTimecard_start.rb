@@ -4,6 +4,8 @@ require 'date'
 
 working_file = ".working"
 
+Dir.chdir(__dir__)
+
 if File.exist?(working_file) then
   array = []
   open(working_file){|f| array = f.readlines }
