@@ -9,12 +9,25 @@ Dir.chdir(__dir__)
 working_file = ".working"
 comment_file = ".comment"
 calender_id_file="calender_id.txt"
+workername_file="worker_name.txt"
 
 calendar_id = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
 
 if File.exist?(calender_id_file) then
-   calendar_id = File.read(calender_id_file).chomp
+  calendar_id = File.read(calender_id_file).chomp
+else
+  print("\033[40m\033[1;31mError!! ", calender_id_file,"にカレンダー登録してください\033[0m\n")
+  exit(2)
 end
+
+if File.exist?(workername_file) then
+   worker_name = File.read(workername_file).chomp
+else
+  print("\033[40m\033[1;31mError!! ", workername_file,"に名前を登録してください\033[0m\n")
+  exit(3)
+end
+
+
 
 if not File.exist?(working_file) then
   print("\033[40m\033[1;31mError!! NOW NOT Working!!! 現在働いていません.\033[0m\n")
@@ -53,6 +66,7 @@ if(s==true) then
     com += str
   end
   com=com.chomp
+  File.write(comment_file, com)
 end
 print("作業コメント:\n",com,"\n")
 
@@ -74,7 +88,8 @@ time_end=t.iso8601
 #p time_end
 
 event = {
-  'summary' => com,
+  'summary' => worker_name,
+  'description' => com,
   'start' => {
     'dateTime' => time_start
   },
