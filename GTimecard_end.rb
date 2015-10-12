@@ -8,12 +8,13 @@ Dir.chdir(__dir__)
 
 working_file = ".working"
 comment_file = ".comment"
+calender_id_file="calender_id.txt"
 
-CALENDAR_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
-if File.exist?("calender_id.txt") then
-   CALENDAR_ID=File.read(comment_file).chomp
+calendar_id = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
+
+if File.exist?(calender_id_file) then
+   calendar_id = File.read(calender_id_file).chomp
 end
-
 
 if not File.exist?(working_file) then
   print("\033[40m\033[1;31mError!! NOW NOT Working!!! 現在働いていません.\033[0m\n")
@@ -83,7 +84,7 @@ event = {
 }
 
 result = client.execute(:api_method => cal.events.insert,
-                        :parameters => {'calendarId' => CALENDAR_ID},
+                        :parameters => {'calendarId' => calendar_id},
                         :body => JSON.dump(event),
                         :headers => {'Content-Type' => 'application/json'})
 
@@ -95,4 +96,3 @@ end
 print("お疲れ様でした。",(d/60).to_s,"分",(d%60).to_s,"秒働きました!\n")
 
 File.unlink working_file
-
