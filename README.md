@@ -2,6 +2,7 @@
 Googleカレンダーにタイムカードを記録します。
 
 ＊環境構築
+
 git clone https://github.com/TumoiYorozu/GTimecard.git
 cd GTimecard
 ./GTimecard_Setup.sh
