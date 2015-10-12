@@ -4,12 +4,16 @@ require "yaml"
 require "time"
 require 'date'
 
-CALENDAR_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
-
 Dir.chdir(__dir__)
 
 working_file = ".working"
 comment_file = ".comment"
+
+CALENDAR_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
+if File.exist?("calender_id.txt") then
+   CALENDAR_ID=File.read(comment_file).chomp
+end
+
 
 if not File.exist?(working_file) then
   print("\033[40m\033[1;31mError!! NOW NOT Working!!! 現在働いていません.\033[0m\n")
