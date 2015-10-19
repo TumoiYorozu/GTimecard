@@ -14,7 +14,7 @@ calender_id_file="calender_id.txt"
 workername_file="worker_name.txt"
 
 if File.exist?(calender_id_file) then		
-  calendar_id = File.read(calender_id_file).chomp		
+  CALENDAR_ID = File.read(calender_id_file).chomp		
 else		
   print("\033[40m\033[1;31mError!! ", calender_id_file,"にカレンダー登録してください\033[0m\n")		
   exit(2)		
