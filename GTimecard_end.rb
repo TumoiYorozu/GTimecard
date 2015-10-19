@@ -4,30 +4,12 @@ require "yaml"
 require "time"
 require 'date'
 
-Dir.chdir(__dir__)
+CALENDAR_ID = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
+
 
 working_file = ".working"
 comment_file = ".comment"
-calender_id_file="calender_id.txt"
-workername_file="worker_name.txt"
-
-calendar_id = 'XXXXXXXXXXXXXXXXXXXXXXXXXX@group.calendar.google.com'
-
-if File.exist?(calender_id_file) then
-  calendar_id = File.read(calender_id_file).chomp
-else
-  print("\033[40m\033[1;31mError!! ", calender_id_file,"にカレンダー登録してください\033[0m\n")
-  exit(2)
-end
-
-if File.exist?(workername_file) then
-   worker_name = File.read(workername_file).chomp
-else
-  print("\033[40m\033[1;31mError!! ", workername_file,"に名前を登録してください\033[0m\n")
-  exit(3)
-end
-
-
+total_time_file=".total_time"
 
 if not File.exist?(working_file) then
   print("\033[40m\033[1;31mError!! NOW NOT Working!!! 現在働いていません.\033[0m\n")
@@ -38,7 +20,7 @@ open(working_file){|f| array = f.readlines }
 ts=Time.at(array[1].to_i)
 t = Time.now
 d = t.to_i - ts.to_i
-print(ts.strftime("%d月%m日(%a) %H時 %M分 %S秒から"),"\n",t.strftime("%d月%m日(%a) %H時 %M分 %S秒まで "),(d/60).to_s,"分",(d%60).to_s,"秒\n" ) 
+print(ts.strftime("%m月%d日(%a) %H時 %M分 %S秒から"),"\n",t.strftime("%m月%d日(%a) %H時 %M分 %S秒まで "),(d/60).to_s,"分",(d%60).to_s,"秒\n" ) 
 
 com=""
 if File.exist?(comment_file) then
@@ -66,7 +48,6 @@ if(s==true) then
     com += str
   end
   com=com.chomp
-  File.write(comment_file, com)
 end
 print("作業コメント:\n",com,"\n")
 
@@ -88,8 +69,7 @@ time_end=t.iso8601
 #p time_end
 
 event = {
-  'summary' => worker_name,
-  'description' => com,
+  'summary' => com,
   'start' => {
     'dateTime' => time_start
   },
@@ -99,7 +79,7 @@ event = {
 }
 
 result = client.execute(:api_method => cal.events.insert,
-                        :parameters => {'calendarId' => calendar_id},
+                        :parameters => {'calendarId' => CALENDAR_ID},
                         :body => JSON.dump(event),
                         :headers => {'Content-Type' => 'application/json'})
 
@@ -108,6 +88,15 @@ if result.status != 200 then
   exit(2)
 end
 
-print("お疲れ様でした。",(d/60).to_s,"分",(d%60).to_s,"秒働きました!\n")
+tt=0
+if File.exist?(total_time_file) then
+  tt=File.read(total_time_file)
+  tt=tt.to_i
+end
+tt += d
+
+File.write(total_time_file, tt)
+
+print("お疲れ様でした。 ",(d/3600).to_s,"時間 ",(d/60%60).to_s,"分 ",(d%60).to_s,"秒働きました!\n累計で　　　　　 ",(tt/3600).to_s,"時間 ",(tt/60%60).to_s,"分 ",(tt%60).to_s,"秒働きました!\n")
 
 File.unlink working_file
