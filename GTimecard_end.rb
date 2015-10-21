@@ -87,7 +87,8 @@ time_end=t.iso8601
 #p time_end
 
 event = {
-  'summary' => com,
+  'summary' => worker_name,
+  'description' => com,
   'start' => {
     'dateTime' => time_start
   },
