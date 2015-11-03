@@ -11,5 +11,5 @@ echo "$NAME" > worker_name.txt
 
 echo 'カレンダーIDを入力'
 read ID
-echo "$ID" > calendar_id.txt
+echo "$ID" > calender_id.txt
 
