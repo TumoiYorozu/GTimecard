@@ -49,10 +49,10 @@ print("新しい作業内容コメントを書き込みますか？[No/yes]:");
 while true do
   s=STDIN.gets
   s=s.chomp
-  if (s==""||s[0]=="N" || s[0]=="n")then
+  if (s[0]=="N" || s[0]=="n")then
     s=false
     break
-  elsif  (s[0]=="Y" || s[0]=="y")
+  elsif  (s==""||s[0]=="Y" || s[0]=="y")
     s=true
     break
   end
